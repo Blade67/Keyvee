@@ -1,0 +1,23 @@
+{
+    "name": "keyvee",
+    "version": "1.0.0",
+    "description": "KeyV extended with Event Emitters",
+    "main": "src/index.js",
+    "scripts": {},
+    "keywords": [
+        "key",
+        "value",
+        "store",
+        "cache",
+        "ttl",
+        "keyv",
+        "event",
+        "emitter",
+        "keyvee"
+    ],
+    "author": "Maxime \"Blade\" Gabel",
+    "license": "MIT",
+    "dependencies": {
+        "json-buffer": "^3.0.1"
+    }
+}
