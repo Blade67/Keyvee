@@ -16,6 +16,14 @@
         "keyvee"
     ],
     "author": "Maxime \"Blade\" Gabel",
+    "homepage": "https://github.com/Blade67/Keyvee",
+    "bugs": {
+        "url": "https://github.com/Blade67/Keyvee/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Blade67/Keyvee"
+    },
     "license": "MIT",
     "dependencies": {
         "json-buffer": "^3.0.1"
