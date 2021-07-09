@@ -69,7 +69,7 @@ class Keyvee extends EventEmitter {
     }
 
     set(key, value, ttl) {
-        key = this._getKeyPrefix(key);
+        const keyPrefixed = this._getKeyPrefix(key);
         if (typeof ttl === "undefined") ttl = this.opts.ttl;
         if (ttl === 0) ttl = undefined;
         const store = this.opts.store;
