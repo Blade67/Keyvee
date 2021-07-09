@@ -26,6 +26,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "json-buffer": "^3.0.1"
+        "json-buffer": "^3.0.1",
+        "keyv": "^4.0.3"
     }
 }
