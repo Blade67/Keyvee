@@ -81,6 +81,7 @@ class Keyvee extends EventEmitter {
                 this.emitter.emit("set", key);
                 return store.set(key, this.opts.serialize(value), ttl);
             })
+            .then((value) => store.set(keyPrefixed, value, ttl))
             .then(() => true);
     }
 
