@@ -52,8 +52,8 @@ class Keyvee extends EventEmitter {
         key = this._getKeyPrefix(key);
         const store = this.opts.store;
         return Promise.resolve()
-            .then(() => {
-                this.emitter.emit("get", data.value);
+            .then((key) => {
+                this.emitter.emit("get", key);
                 store.get(key);
             })
             .then((data) => {
