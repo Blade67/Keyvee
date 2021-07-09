@@ -49,22 +49,24 @@ class Keyvee extends EventEmitter {
     }
 
     get(key) {
-        key = this._getKeyPrefix(key);
-        const store = this.opts.store;
+        const keyPrefixed = this._getKeyPrefix(key);
+        const { store } = this.opts;
         return Promise.resolve()
             .then((key) => {
                 this.emitter.emit("get", key);
-                store.get(key);
+                store.get(keyPrefixed);
             })
             .then((data) => {
-                data = typeof data === "string" ? this.opts.deserialize(data) : data;
+                return typeof data === "string" ? this.opts.deserialize(data) : data;
+            })
+            .then((data) => {
                 if (data === undefined) return undefined;
                 if (typeof data.expires === "number" && Date.now() > data.expires) {
                     this.emitter.emit("TTL", [key, data.value]);
                     this.delete(key);
                     return undefined;
                 }
-                return data.value;
+                return opts && opts.raw ? data : data.value;
             });
     }
 
@@ -77,9 +79,9 @@ class Keyvee extends EventEmitter {
         return Promise.resolve()
             .then(() => {
                 const expires = typeof ttl === "number" ? Date.now() + ttl : null;
-                value = { value, expires };
                 this.emitter.emit("set", key);
-                return store.set(key, this.opts.serialize(value), ttl);
+                value = { value, expires };
+                return this.opts.serialize(value);
             })
             .then((value) => store.set(keyPrefixed, value, ttl))
             .then(() => true);
@@ -87,14 +89,14 @@ class Keyvee extends EventEmitter {
 
     delete(key) {
         this.emitter.emit("delete", key);
-        key = this._getKeyPrefix(key);
-        const store = this.opts.store;
-        return Promise.resolve().then(() => store.delete(key));
+        const keyPrefixed = this._getKeyPrefix(key);
+        const { store } = this.opts;
+        return Promise.resolve().then(() => store.delete(keyPrefixed));
     }
 
     clear() {
         this.emitter.emit("clear");
-        const store = this.opts.store;
+        const { store } = this.opts;
         return Promise.resolve().then(() => store.clear());
     }
 }
